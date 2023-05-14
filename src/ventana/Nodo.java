@@ -3,10 +3,10 @@ package ventana;
 
 public class Nodo {
 
-    private double valor;
+    private int valor;
     private Nodo siguiente;
 
-    public Nodo(double n) {
+    public Nodo(int n) {
         valor = n;
         siguiente = null;
     }
@@ -17,7 +17,7 @@ public class Nodo {
     }
 
     // Método para obtener el valor del nodo
-    public double getValor() {
+    public int getValor() {
         return valor;
     }
 
