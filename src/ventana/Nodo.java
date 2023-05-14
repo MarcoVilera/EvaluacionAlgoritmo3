@@ -3,8 +3,8 @@ package ventana;
 
 public class Nodo {
 
-    double valor;
-    Nodo siguiente;
+    private double valor;
+    private Nodo siguiente;
 
     public Nodo(double n) {
         valor = n;
