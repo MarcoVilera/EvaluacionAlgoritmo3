@@ -12,7 +12,7 @@ public class ListaEnlazada {
     }
 
     // Método para agregar un nodo al principio de la lista enlazada
-    public void addFirst(double n) {
+    public void addFirst(int n) {
         // Si la lista está vacía, establece el nuevo nodo como la cabeza
         if (head == null) {
             head = new Nodo(n);
@@ -28,7 +28,7 @@ public class ListaEnlazada {
     }
 
     // Método para obtener el valor de un nodo en una posición dada
-    public double get(int index) {
+    public int get(int index) {
         int cont = 0;
         Nodo temp = head;
         // Recorre la lista enlazada hasta llegar al índice deseado
