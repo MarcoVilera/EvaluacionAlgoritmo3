@@ -8,11 +8,16 @@ import static java.awt.Color.WHITE;
 
 public class Ventana extends javax.swing.JFrame {
 
+    //Ejes X y Y para arrastrar programa
     int xMouse, yMouse;
+
     // Botón continuar presionado
     boolean pressed = false;
     //Botón agregar presionado
     boolean aggPressed = false;
+    //Datos ya mostrados
+    boolean mostrados = false;
+
     ListaEnlazada lista1 = new ListaEnlazada();
     ListaEnlazada lista2 = new ListaEnlazada();
     ListaEnlazada lista3 = new ListaEnlazada();
@@ -44,7 +49,6 @@ public class Ventana extends javax.swing.JFrame {
         btnTextAgregar = new javax.swing.JLabel();
         btnContinuar = new javax.swing.JPanel();
         btnTextContinuar = new javax.swing.JLabel();
-        listaGenLabel = new javax.swing.JLabel();
         listDisplay = new javax.swing.JScrollPane();
         listDisplayText = new javax.swing.JTextArea();
         getElementLabel = new javax.swing.JLabel();
@@ -182,15 +186,18 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
         background.add(entryField, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 130, -1));
+
+        separatorEntry.setForeground(java.awt.Color.black);
         background.add(separatorEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, 130, 10));
 
         btnAgregar.setBackground(new java.awt.Color(204, 204, 204));
         btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnTextAgregar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnTextAgregar.setForeground(new java.awt.Color(153, 153, 153));
+        btnTextAgregar.setForeground(java.awt.Color.gray);
         btnTextAgregar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnTextAgregar.setText("Agregar");
+        btnTextAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnTextAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnTextAgregarMouseClicked(evt);
@@ -224,7 +231,7 @@ public class Ventana extends javax.swing.JFrame {
         btnContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnTextContinuar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnTextContinuar.setForeground(new java.awt.Color(153, 153, 153));
+        btnTextContinuar.setForeground(java.awt.Color.gray);
         btnTextContinuar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnTextContinuar.setText("Continuar");
         btnTextContinuar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -256,11 +263,6 @@ public class Ventana extends javax.swing.JFrame {
 
         background.add(btnContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, -1, -1));
 
-        listaGenLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        listaGenLabel.setForeground(new java.awt.Color(0, 0, 0));
-        listaGenLabel.setText("Lista generada");
-        background.add(listaGenLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, -1, -1));
-
         listDisplay.setBorder(null);
         listDisplay.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
@@ -270,18 +272,17 @@ public class Ventana extends javax.swing.JFrame {
         listDisplayText.setRows(5);
         listDisplay.setViewportView(listDisplayText);
 
-        background.add(listDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, 250, 40));
+        background.add(listDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 250, 40));
 
         getElementLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         getElementLabel.setForeground(new java.awt.Color(0, 0, 0));
-        getElementLabel.setText("Obtener elemento por su posición");
-        background.add(getElementLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, -1, -1));
+        background.add(getElementLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, -1, -1));
 
         getElementEntry.setBackground(new java.awt.Color(255, 255, 255));
         getElementEntry.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         getElementEntry.setForeground(java.awt.Color.gray);
-        getElementEntry.setText("Ingresa la posición");
         getElementEntry.setBorder(null);
+        getElementEntry.setEnabled(false);
         getElementEntry.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 getElementEntryMousePressed(evt);
@@ -292,10 +293,12 @@ public class Ventana extends javax.swing.JFrame {
                 getElementEntryActionPerformed(evt);
             }
         });
-        background.add(getElementEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 120, -1));
-        background.add(separatorgetElement, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, 120, 10));
+        background.add(getElementEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 120, -1));
 
-        btnObtener.setBackground(new java.awt.Color(0, 150, 136));
+        separatorgetElement.setForeground(new java.awt.Color(255, 255, 255));
+        background.add(separatorgetElement, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, 120, 10));
+
+        btnObtener.setBackground(new java.awt.Color(255, 255, 255));
         btnObtener.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnTextObtener.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -325,22 +328,20 @@ public class Ventana extends javax.swing.JFrame {
             .addComponent(btnTextObtener, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        background.add(btnObtener, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 350, 80, -1));
+        background.add(btnObtener, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 320, 80, -1));
 
         dsplayGetElement.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         dsplayGetElement.setForeground(new java.awt.Color(0, 0, 0));
-        dsplayGetElement.setText("El elemento es");
-        background.add(dsplayGetElement, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 360, -1, -1));
+        background.add(dsplayGetElement, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 330, -1, -1));
 
         deleteElementLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         deleteElementLabel.setForeground(new java.awt.Color(0, 0, 0));
-        deleteElementLabel.setText("Eliminar un elemento");
-        background.add(deleteElementLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, -1, -1));
+        background.add(deleteElementLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, -1, -1));
 
         deleteElementEntry.setBackground(new java.awt.Color(255, 255, 255));
         deleteElementEntry.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         deleteElementEntry.setForeground(java.awt.Color.gray);
-        deleteElementEntry.setText("Ingresa la posición");
+        deleteElementEntry.setToolTipText("");
         deleteElementEntry.setBorder(null);
         deleteElementEntry.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -352,10 +353,12 @@ public class Ventana extends javax.swing.JFrame {
                 deleteElementEntryActionPerformed(evt);
             }
         });
-        background.add(deleteElementEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, 120, -1));
-        background.add(separatorDeleteElement, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, 120, 10));
+        background.add(deleteElementEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, 120, -1));
 
-        btnDeleteElement.setBackground(new java.awt.Color(0, 150, 136));
+        separatorDeleteElement.setForeground(new java.awt.Color(255, 255, 255));
+        background.add(separatorDeleteElement, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 120, 10));
+
+        btnDeleteElement.setBackground(new java.awt.Color(255, 255, 255));
 
         btnTextDeleteElement.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnTextDeleteElement.setForeground(new java.awt.Color(255, 255, 255));
@@ -385,22 +388,20 @@ public class Ventana extends javax.swing.JFrame {
             .addComponent(btnTextDeleteElement, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        background.add(btnDeleteElement, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 80, 30));
+        background.add(btnDeleteElement, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, 80, 30));
 
         dsplayDeleteElement.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         dsplayDeleteElement.setForeground(new java.awt.Color(0, 0, 0));
-        dsplayDeleteElement.setText("Elemento eliminado");
-        background.add(dsplayDeleteElement, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 410, -1, -1));
+        dsplayDeleteElement.setToolTipText("");
+        background.add(dsplayDeleteElement, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, -1, -1));
 
         labelSortMay.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelSortMay.setForeground(new java.awt.Color(0, 0, 0));
-        labelSortMay.setText("Elementos ordenados de mayor a menor");
-        background.add(labelSortMay, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, -1));
+        background.add(labelSortMay, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, -1, -1));
 
         labelSortMen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelSortMen.setForeground(new java.awt.Color(0, 0, 0));
-        labelSortMen.setText("Elementos ordenados de menor a mayor");
-        background.add(labelSortMen, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 510, -1, -1));
+        background.add(labelSortMen, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, -1, -1));
 
         dsplaySortMay.setBorder(null);
         dsplaySortMay.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -411,7 +412,7 @@ public class Ventana extends javax.swing.JFrame {
         dsplaySortMayText.setRows(5);
         dsplaySortMay.setViewportView(dsplaySortMayText);
 
-        background.add(dsplaySortMay, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 460, 250, 40));
+        background.add(dsplaySortMay, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, 250, 40));
 
         dsplaySortMen.setBorder(null);
         dsplaySortMen.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -422,14 +423,14 @@ public class Ventana extends javax.swing.JFrame {
         dsplaySortMenText.setRows(5);
         dsplaySortMen.setViewportView(dsplaySortMenText);
 
-        background.add(dsplaySortMen, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 510, 250, 40));
+        background.add(dsplaySortMen, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 480, 250, 40));
 
         btnLimpiar.setBackground(new java.awt.Color(204, 204, 204));
         btnLimpiar.setForeground(new java.awt.Color(153, 153, 153));
         btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnTextLimpiar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnTextLimpiar.setForeground(new java.awt.Color(153, 153, 153));
+        btnTextLimpiar.setForeground(java.awt.Color.gray);
         btnTextLimpiar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnTextLimpiar.setText("Limpiar");
         btnTextLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -461,7 +462,7 @@ public class Ventana extends javax.swing.JFrame {
         elementAddedLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         elementAddedLabel.setForeground(new java.awt.Color(0, 0, 0));
         elementAddedLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        background.add(elementAddedLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 230, 850, -1));
+        background.add(elementAddedLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 850, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -491,195 +492,431 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteElementEntryActionPerformed
 
+    //Barra superior al ser presionada
     private void barraHeaderMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraHeaderMousePressed
+
         xMouse = evt.getX();
         yMouse = evt.getY();
+
     }//GEN-LAST:event_barraHeaderMousePressed
 
+    //Barra superior al ser arrastrada
     private void barraHeaderMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraHeaderMouseDragged
+
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
+
     }//GEN-LAST:event_barraHeaderMouseDragged
 
+    //Batón apagado al ser clickeado
     private void btnTextCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextCloseMouseClicked
+
         System.exit(0);
+
     }//GEN-LAST:event_btnTextCloseMouseClicked
 
+    //Botón apagado cuando el mouse entre
     private void btnTextCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextCloseMouseEntered
+
         btnClose.setBackground(Color.red);
+
     }//GEN-LAST:event_btnTextCloseMouseEntered
 
+    //Botón apagado cuando el mouse sale
     private void btnTextCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextCloseMouseExited
+
         btnClose.setBackground(new java.awt.Color(0, 105, 92));
+
     }//GEN-LAST:event_btnTextCloseMouseExited
 
+    //Botón apagado al ser presionado
     private void btnTextCloseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextCloseMousePressed
+
         btnClose.setBackground(new java.awt.Color(204, 51, 0));
+
     }//GEN-LAST:event_btnTextCloseMousePressed
 
+    //Botón Agregar cuando el mouse entre
     private void btnTextAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextAgregarMouseEntered
 
-        if ((!"Ingresa un número".equals(entryField.getText())) && (!"".equals(entryField.getText()))) {
-            btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        if ((!"Ingresa un número".equals(entryField.getText())) && (!"".equals(entryField.getText())) || aggPressed && mostrados == false) {
+
+            btnTextAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnAgregar.setBackground(new java.awt.Color(0, 121, 107));
             btnTextAgregar.setForeground(WHITE);
+
         } else {
-            btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-            btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+            btnTextAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
             btnAgregar.setBackground(new java.awt.Color(204, 204, 204));
             btnTextAgregar.setForeground(GRAY);
-        }
 
+        }
     }//GEN-LAST:event_btnTextAgregarMouseEntered
 
+    //Botón Agregar cuando el mouse sale
     private void btnTextAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextAgregarMouseExited
-        if (aggPressed == false) {
-            btnAgregar.setBackground(new java.awt.Color(204, 204, 204));
-            btnTextAgregar.setForeground(GRAY);
-        } else {
-            btnAgregar.setBackground(new java.awt.Color(0, 150, 136));
-        }
 
+        if ((!"Ingresa un número".equals(entryField.getText())) && (!"".equals(entryField.getText())) || aggPressed && mostrados == false) {
+
+            btnAgregar.setBackground(new java.awt.Color(0, 150, 136));
+            btnTextAgregar.setForeground(WHITE);
+
+        }
 
     }//GEN-LAST:event_btnTextAgregarMouseExited
 
+    //Botón Agregar al ser clickeado
     private void btnTextAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextAgregarMouseClicked
-        if (!"Ingresa un número".equals(entryField.getText())) {
-            double n;
-            n = Double.parseDouble(entryField.getText());
-            lista1.addFirst(n);
-            lista2.addFirst(n);
-            lista3.addFirst(n);
-            entryField.setText("Ingresa un número");
-            entryField.setForeground(GRAY);
-            elementAddedLabel.setText("Elemento Agregado");
-            aggPressed = true;
-            btnContinuar.setBackground(new java.awt.Color(0, 150, 136));
-            btnTextContinuar.setForeground(WHITE);
+
+        try {
+
+            if (!"Ingresa un número".equals(entryField.getText()) && (!"".equals(entryField.getText()))) {
+
+                int n;
+                n = Integer.parseInt(entryField.getText());
+                lista1.addFirst(n);
+                lista2.addFirst(n);
+                lista3.addFirst(n);
+                entryField.setText("Ingresa un número");
+                entryField.setForeground(GRAY);
+                elementAddedLabel.setText("Elemento Agregado");
+                aggPressed = true;
+                btnContinuar.setBackground(new java.awt.Color(0, 150, 136));
+                btnTextContinuar.setForeground(WHITE);
+
+            }
+
+        } catch (NumberFormatException valueNotValid) {
+
+            elementAddedLabel.setText("Valor no valido");
+
         }
 
     }//GEN-LAST:event_btnTextAgregarMouseClicked
 
+    //Botón Continuar cuando el mouse entre
     private void btnTextContinuarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextContinuarMouseEntered
-        if (aggPressed == false) {
+
+        if (aggPressed == false || mostrados == true) {
+
             btnContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
             btnContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            btnContinuar.setBackground(new java.awt.Color(204, 204, 204));
+            btnTextContinuar.setForeground(GRAY);
+
         } else {
+
             btnContinuar.setBackground(new java.awt.Color(0, 121, 107));
+
         }
 
     }//GEN-LAST:event_btnTextContinuarMouseEntered
 
+    //Botón Continuar cuando el mouse sale
     private void btnTextContinuarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextContinuarMouseExited
-        if (aggPressed) {
-            btnContinuar.setBackground(new java.awt.Color(0, 150, 136));
-        } else {
+
+        if (aggPressed == false || mostrados == true) {
+
             btnContinuar.setBackground(new java.awt.Color(204, 204, 204));
+
+        } else {
+
+            btnContinuar.setBackground(new java.awt.Color(0, 150, 136));
+
         }
 
     }//GEN-LAST:event_btnTextContinuarMouseExited
 
+    //Botón Continuar al ser clickeado
     private void btnTextContinuarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextContinuarMouseClicked
-        if (aggPressed) {
+
+        if (aggPressed && mostrados == false) {
+
             pressed = true;
+            mostrados = true;
             btnLimpiar.setBackground(new java.awt.Color(0, 150, 136));
             btnTextLimpiar.setForeground(WHITE);
+            elementAddedLabel.setText("Lista Generada");
+            getElementEntry.setEnabled(true);
+            deleteElementEntry.setEnabled(true);
             Nodo actual = lista1.head;
+
             while (actual != null) {
-                double valor = actual.getValor();
-                listDisplayText.append(Double.toString(valor) + " ");
+
+                int valor = actual.getValor();
+                listDisplayText.append(Integer.toString(valor) + " ");
                 actual = actual.getSiguiente();
+
             }
+
+            entryField.setText("Ingresa un número");
+            entryField.setForeground(GRAY);
+            entryField.setEditable(false);
+
+            btnAgregar.setBackground(new java.awt.Color(204, 204, 204));
+            btnTextAgregar.setForeground(GRAY);
+            btnContinuar.setBackground(new java.awt.Color(204, 204, 204));
+            btnTextContinuar.setForeground(GRAY);
+
+            getElementLabel.setText("Obtener elemento por su posición");
+            getElementEntry.setText("Ingresa la posición");
+            getElementEntry.setForeground(GRAY);
+            separatorgetElement.setForeground(BLACK);
+            btnObtener.setBackground(new java.awt.Color(0, 150, 136));
+
+            deleteElementLabel.setText("Eliminar un elemento");
+            deleteElementEntry.setText("Ingresa la posición");
+            separatorDeleteElement.setForeground(GRAY);
+            separatorDeleteElement.setForeground(BLACK);
+            btnDeleteElement.setBackground(new java.awt.Color(0, 150, 136));
+
         }
 
     }//GEN-LAST:event_btnTextContinuarMouseClicked
 
+    //Botón Limpiar cuando el mouse entre
     private void btnTextLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextLimpiarMouseEntered
 
         if (pressed) {
+
             btnLimpiar.setBackground(new java.awt.Color(0, 121, 107));
             btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnTextLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         } else {
+
             btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
             btnTextLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         }
+
     }//GEN-LAST:event_btnTextLimpiarMouseEntered
 
+    //Botón Limpiar cuando el mouse sale
     private void btnTextLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextLimpiarMouseExited
+
         if (pressed) {
+
             btnLimpiar.setBackground(new java.awt.Color(0, 150, 136));
 
         } else {
+
             btnLimpiar.setBackground(new java.awt.Color(204, 204, 204));
+
         }
+
     }//GEN-LAST:event_btnTextLimpiarMouseExited
 
+    //Botón Limpiar al ser clickeado
     private void btnTextLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextLimpiarMouseClicked
+
         pressed = false;
-        btnTextLimpiar.setForeground(new java.awt.Color(153, 153, 153));
+        aggPressed = false;
+        mostrados = false;
+
+        entryField.setEditable(true);
+        btnContinuar.setBackground(new java.awt.Color(204, 204, 204));
+        btnTextContinuar.setForeground(GRAY);
+        btnTextLimpiar.setForeground(new java.awt.Color(128, 128, 128));
+        elementAddedLabel.setText("");
+        listDisplayText.setText("");
+
+        getElementLabel.setText("");
+        getElementEntry.setText("");
+        getElementEntry.setEnabled(false);
+        dsplayGetElement.setText("");
+        separatorgetElement.setForeground(WHITE);
+        btnObtener.setBackground(WHITE);
+
+        deleteElementLabel.setText("");
+        deleteElementEntry.setText("");
+        deleteElementEntry.setEnabled(false);
+        dsplayDeleteElement.setText("");
+        separatorDeleteElement.setForeground(WHITE);
+        btnDeleteElement.setBackground(WHITE);
+
+        labelSortMay.setText("");
+        labelSortMen.setText("");
+        dsplaySortMayText.setText("");
+        dsplaySortMenText.setText("");
+
         lista1 = new ListaEnlazada();
         lista2 = new ListaEnlazada();
         lista3 = new ListaEnlazada();
     }//GEN-LAST:event_btnTextLimpiarMouseClicked
 
+    //Botón Obtener cuando el mouse entre
     private void btnTextObtenerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextObtenerMouseEntered
-        btnObtener.setBackground(new java.awt.Color(0, 121, 107));
+
+        if (pressed == false && aggPressed == false) {
+
+            btnObtener.setBackground(WHITE);
+            btnTextObtener.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        } else if (pressed == false && aggPressed == true) {
+
+            btnTextObtener.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            btnObtener.setBackground(WHITE);
+
+        } else {
+
+            btnTextObtener.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btnObtener.setBackground(new java.awt.Color(0, 121, 107));
+
+        }
+
     }//GEN-LAST:event_btnTextObtenerMouseEntered
 
+    //Botón Limpiar cuando el mouse sale
     private void btnTextObtenerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextObtenerMouseExited
-        btnObtener.setBackground(new java.awt.Color(0, 150, 136));
+
+        if (pressed == false && aggPressed == false) {
+
+            btnObtener.setBackground(WHITE);
+
+        } else if (pressed == false && aggPressed == true) {
+
+            btnObtener.setBackground(WHITE);
+
+        } else {
+
+            btnObtener.setBackground(new java.awt.Color(0, 150, 136));
+
+        }
+
     }//GEN-LAST:event_btnTextObtenerMouseExited
 
+    //Botón Obtener al ser clickeado
     private void btnTextObtenerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextObtenerMouseClicked
 
-        int index = Integer.parseInt(getElementEntry.getText());
-        dsplayGetElement.setText("El elemento es " + lista1.get(index));
+        if (pressed && aggPressed) {
+
+            try {
+
+                int index = Integer.parseInt(getElementEntry.getText());
+                dsplayGetElement.setText("El elemento es " + lista1.get(index));
+
+            } catch (NullPointerException indexNull) {
+
+                dsplayGetElement.setText("Posición no valida , solo valores desde 0 hasta " + (lista1.getSize() - 1));
+
+            } catch (NumberFormatException valueNotValid) {
+
+                dsplayGetElement.setText("Valor no valido, ingresa un valor númerico desde 0 hasta " + (lista1.getSize() - 1));
+
+            }
+        }
+
+
     }//GEN-LAST:event_btnTextObtenerMouseClicked
 
+    //Botón Eliminar cuando el mouse entre
     private void btnTextDeleteElementMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextDeleteElementMouseEntered
-        btnDeleteElement.setBackground(new java.awt.Color(0, 121, 107));
+
+        if (pressed == false && aggPressed == false) {
+
+            btnTextDeleteElement.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            btnDeleteElement.setBackground(WHITE);
+
+        } else if (pressed == false && aggPressed == true) {
+
+            btnTextDeleteElement.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            btnDeleteElement.setBackground(WHITE);
+
+        } else {
+
+            btnTextDeleteElement.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btnDeleteElement.setBackground(new java.awt.Color(0, 121, 107));
+
+        }
+
     }//GEN-LAST:event_btnTextDeleteElementMouseEntered
 
+    //Botón Eliminar cuando el mouse salga
     private void btnTextDeleteElementMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextDeleteElementMouseExited
-        btnDeleteElement.setBackground(new java.awt.Color(0, 150, 136));
+        if (pressed == false && aggPressed == false) {
+            btnDeleteElement.setBackground(WHITE);
+        } else if (pressed == false && aggPressed == true) {
+            btnDeleteElement.setBackground(WHITE);
+        } else {
+            btnDeleteElement.setBackground(new java.awt.Color(0, 150, 136));
+        }
+
     }//GEN-LAST:event_btnTextDeleteElementMouseExited
 
+    //Botón Eliminar al ser clickeado
     private void btnTextDeleteElementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTextDeleteElementMouseClicked
-        int index = Integer.parseInt(deleteElementEntry.getText());
-        listaGenLabel.setText("Lista Actualizada");
-        lista1.delete(index);
-        lista2.delete(index);
-        lista3.delete(index);
-        Nodo actual = lista1.head;
-        listDisplayText.setText("");
-        while (actual != null) {
-            double valor = actual.getValor();
-            listDisplayText.append(Double.toString(valor) + " ");
-            actual = actual.getSiguiente();
-        }
-        lista2.sortMayor();
-        Nodo actual2 = lista2.head;
 
-        while (actual2 != null) {
-            double valor2 = actual2.getValor();
-            dsplaySortMayText.append(Double.toString(valor2) + " ");
-            actual2 = actual2.getSiguiente();
+        if (pressed && aggPressed) {
+
+            try {
+
+                int index = Integer.parseInt(deleteElementEntry.getText());
+                elementAddedLabel.setText("Lista Actualizada");
+                lista1.delete(index);
+                lista2.delete(index);
+                lista3.delete(index);
+
+                Nodo actual = lista1.head;
+                listDisplayText.setText("");
+                while (actual != null) {
+
+                    int valor = actual.getValor();
+                    listDisplayText.append(Integer.toString(valor) + " ");
+                    actual = actual.getSiguiente();
+
+                }
+
+                dsplayDeleteElement.setText("Elemento " + deleteElementEntry.getText() + " Eliminado");
+
+                labelSortMay.setText("Elementos ordenados de mayor a menor");
+                lista2.sortMayor();
+                Nodo actual2 = lista2.head;
+
+                while (actual2 != null) {
+
+                    int valor2 = actual2.getValor();
+                    dsplaySortMayText.append(Integer.toString(valor2) + " ");
+                    actual2 = actual2.getSiguiente();
+
+                }
+
+                labelSortMen.setText("Elementos ordenados de menor a mayor");
+                lista3.sortMenor();
+                Nodo actual3 = lista3.head;
+
+                while (actual3 != null) {
+
+                    int valor3 = actual3.getValor();
+                    dsplaySortMenText.append(Integer.toString(valor3) + " ");
+                    actual3 = actual3.getSiguiente();
+
+                }
+
+            } catch (NullPointerException indexNull) {
+
+                elementAddedLabel.setText("Lista Generada");
+                dsplayDeleteElement.setText("Posición no valida , solo valores desde 0 hasta " + (lista1.getSize() - 1));
+                labelSortMay.setText("");
+                labelSortMen.setText("");
+
+            } catch (NumberFormatException valueNotValid) {
+
+                elementAddedLabel.setText("Lista Generada");
+                dsplayDeleteElement.setText("Valor no valido, ingresa un valor númerico desde 0 hasta " + (lista1.getSize() - 1));
+
+            }
         }
-        lista3.sortMenor();
-        Nodo actual3 = lista3.head;
-        while (actual3 != null) {
-            double valor3 = actual3.getValor();
-            dsplaySortMenText.append(Double.toString(valor3) + " ");
-            actual3 = actual3.getSiguiente();
-        }
+
 
     }//GEN-LAST:event_btnTextDeleteElementMouseClicked
 
+    //Entrada de numeros al ser presionada
     private void entryFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_entryFieldMousePressed
-        if (entryField.getText().equals("Ingresa un número")) {
+
+        if (entryField.getText().equals("Ingresa un número") && entryField.isEditable()) {
             entryField.setText("");
             entryField.setForeground(BLACK);
             elementAddedLabel.setText("");
@@ -687,36 +924,54 @@ public class Ventana extends javax.swing.JFrame {
 
     }//GEN-LAST:event_entryFieldMousePressed
 
+    //Entrada de Obtener elemento al ser presionada
     private void getElementEntryMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_getElementEntryMousePressed
+
         if (getElementEntry.getText().equals("Ingresa la posición")) {
+
             getElementEntry.setText("");
             getElementEntry.setForeground(BLACK);
+
         }
-        if (deleteElementEntry.getText().isEmpty()) {
+
+        if (deleteElementEntry.getText().isEmpty() && getElementEntry.isEnabled()) {
+
             deleteElementEntry.setText("Ingresa la posición");
             deleteElementEntry.setForeground(GRAY);
+
         }
 
     }//GEN-LAST:event_getElementEntryMousePressed
 
+    //Entrada de Eliminar elemento al ser presionada
     private void deleteElementEntryMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteElementEntryMousePressed
+
         if (deleteElementEntry.getText().equals("Ingresa la posición")) {
+
             deleteElementEntry.setText("");
             deleteElementEntry.setForeground(BLACK);
-        }
-        if (getElementEntry.getText().isEmpty()) {
-            getElementEntry.setText("Ingresa la posición");
-            getElementEntry.setForeground(GRAY);
+
         }
 
+        if (getElementEntry.getText().isEmpty() && getElementEntry.isEnabled()) {
+
+            getElementEntry.setText("Ingresa la posición");
+            getElementEntry.setForeground(GRAY);
+
+        }
 
     }//GEN-LAST:event_deleteElementEntryMousePressed
 
+    //Entrada de numeros cuando el mouse sale
     private void entryFieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_entryFieldMouseExited
+
         if ((!"Ingresa un número".equals(entryField.getText())) && (!"".equals(entryField.getText()))) {
+
             btnAgregar.setBackground(new java.awt.Color(0, 150, 136));
             btnTextAgregar.setForeground(WHITE);
+
         }
+
     }//GEN-LAST:event_entryFieldMouseExited
 
     public static void main(String args[]) {
@@ -785,7 +1040,6 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JLabel labelTitle;
     private javax.swing.JScrollPane listDisplay;
     public javax.swing.JTextArea listDisplayText;
-    private javax.swing.JLabel listaGenLabel;
     private javax.swing.JSeparator separatorDeleteElement;
     private javax.swing.JSeparator separatorEntry;
     private javax.swing.JSeparator separatorgetElement;
