@@ -46,7 +46,7 @@ public class ListaEnlazada {
         if (index == 0) {
             head = head.getSiguiente();
         } else {
-            /* Si se elimina un nodo diferente al primero, 
+            /* Si se elimina un nodo diferente al primero,
             recorre la lista enlazada hasta llegar al nodo anterior al que se desea eliminar y enlaza ese nodo con el siguiente nodo
              */
             int cont = 0;
@@ -61,7 +61,7 @@ public class ListaEnlazada {
         size--;
     }
 
-    //Método para ordenar de mayor a menor la lista 
+    //Método para ordenar de mayor a menor la lista
     public void sortMayor() {
         // Inicializar variables
         Nodo nodoActual = head; // Nodo actual que se está comparando en el bucle exterior
@@ -105,7 +105,7 @@ public class ListaEnlazada {
         }
     }
 
-    //Método para ordenar de menor a mayor la lista 
+    //Método para ordenar de menor a mayor la lista
     public void sortMenor() {
         // Inicializar variables
         Nodo nodoActual = head;
